@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.feedspace.api.dto.PostRequest;
-import ru.feedspace.api.dto.PostResponse;
-import ru.feedspace.application.service.PostService;
+import ru.feedspace.api.dto.post.PostRequest;
+import ru.feedspace.api.dto.post.PostResponse;
+import ru.feedspace.application.service.post.PostService;
 
 import java.util.List;
 
@@ -29,5 +29,20 @@ public class PostController {
     public List<PostResponse> getAllPosts() {
         log.debug("GET: получение всех постов");
         return postService.getAllPosts();
+    }
+
+    @PutMapping("/{id}/like")
+    public PostResponse likePost(@PathVariable Long id) {
+        log.debug("PUT: лайк поста ID: {}", id);
+        // TODO: получить userId из аутентификации, пока используем заглушку
+        Long userId = 1L;
+        return postService.likePost(id, userId);
+    }
+
+    @DeleteMapping("/{id}/like")
+    public PostResponse unlikePost(@PathVariable Long id) {
+        log.debug("DELETE: удаление лайка с поста ID: {}", id);
+        Long userId = 1L;
+        return postService.unlikePost(id, userId);
     }
 }

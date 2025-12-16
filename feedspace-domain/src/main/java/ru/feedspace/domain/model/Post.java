@@ -25,8 +25,10 @@ public class Post {
     private String description;
 
     private String imageUrl;
-    private String authorName;
-    private String authorAvatar;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;  // Заменяем authorName и authorAvatar
 
     @Builder.Default
     private Integer likesCount = 0;

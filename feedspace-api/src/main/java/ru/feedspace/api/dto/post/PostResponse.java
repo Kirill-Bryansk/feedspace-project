@@ -1,6 +1,7 @@
-package ru.feedspace.api.dto;
+package ru.feedspace.api.dto.post;
 
 import lombok.Data;
+import ru.feedspace.api.dto.user.UserResponse;
 
 import java.time.LocalDateTime;
 
@@ -10,8 +11,7 @@ public class PostResponse {
     private String title;
     private String description;
     private String imageUrl;
-    private String authorName;
-    private String authorAvatar;
+    private UserResponse author;
     private Integer likesCount;
     private Boolean isLiked;
     private LocalDateTime createdAt;
