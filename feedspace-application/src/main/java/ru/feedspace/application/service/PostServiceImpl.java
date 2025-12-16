@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.feedspace.api.dto.PostRequest;
 import ru.feedspace.api.dto.PostResponse;
+import ru.feedspace.application.mapper.PostMapper;
 import ru.feedspace.domain.model.Post;
 import ru.feedspace.domain.repository.PostRepository;
 
