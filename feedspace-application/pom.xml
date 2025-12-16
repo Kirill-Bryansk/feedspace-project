@@ -18,6 +18,13 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <!-- H2 Database для dev профиля -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope> <!-- Только для runtime, не для компиляции -->
+        </dependency>
+
         <!-- MapStruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
