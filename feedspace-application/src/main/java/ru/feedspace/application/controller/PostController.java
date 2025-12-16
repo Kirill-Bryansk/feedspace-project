@@ -8,6 +8,8 @@ import ru.feedspace.api.dto.PostRequest;
 import ru.feedspace.api.dto.PostResponse;
 import ru.feedspace.application.service.PostService;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/posts")
@@ -21,5 +23,11 @@ public class PostController {
     public PostResponse createPost(@RequestBody PostRequest request) {
         log.debug("POST: создание поста. Данные - {}", request);
         return postService.createPost(request);
+    }
+
+    @GetMapping
+    public List<PostResponse> getAllPosts() {
+        log.debug("GET: получение всех постов");
+        return postService.getAllPosts();
     }
 }

@@ -37,7 +37,12 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public List<PostResponse> getAllPosts() {
-        return List.of();
+        log.info("Получение всех постов из БД");
+        List<Post> posts = postRepository.findAll();
+        log.debug("Найдено {} постов", posts.size());
+        return posts.stream()
+                .map(postMapper::toResponse)
+                .toList();
     }
 
     @Override
