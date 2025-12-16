@@ -1,0 +1,194 @@
+openapi: 3.0.3
+info:
+  title: FeedSpace API
+  version: 1.0.0
+  description: API для приложения ленты постов и товаров
+  contact:
+    name: FeedSpace Team
+    email: team@feedspace.ru
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /api/users:
+    post:
+      tags:
+        - Users
+      summary: Создать нового пользователя
+      description: Создает пользователя с указанным именем и аватаром
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '201':
+          description: Пользователь создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Некорректные данные
+        '409':
+          description: Пользователь с таким именем уже существует
+
+    get:
+      tags:
+        - Users
+      summary: Получить всех пользователей
+      responses:
+        '200':
+          description: Список пользователей
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+
+  /api/users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Получить пользователя по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Пользователь найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: Пользователь не найден
+
+  /api/posts:
+    post:
+      tags:
+        - Posts
+      summary: Создать новый пост
+      description: Создает пост с указанными данными. Автор должен существовать.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostRequest'
+      responses:
+        '201':
+          description: Пост создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostResponse'
+        '400':
+          description: Некорректные данные
+        '404':
+          description: Автор не найден
+
+    get:
+      tags:
+        - Posts
+      summary: Получить все посты
+      responses:
+        '200':
+          description: Список постов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PostResponse'
+
+components:
+  schemas:
+    UserRequest:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+          example: Иван Петров
+          description: Имя пользователя (уникальное)
+        avatarUrl:
+          type: string
+          example: https://api.dicebear.com/7.x/avataaars/svg?seed=Ivan
+          description: URL аватара пользователя
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: Иван Петров
+        avatarUrl:
+          type: string
+          example: https://api.dicebear.com/7.x/avataaars/svg?seed=Ivan
+        registeredAt:
+          type: string
+          format: date-time
+          example: "2025-12-16T12:30:45.123456"
+
+    PostRequest:
+      type: object
+      required:
+        - title
+        - authorId
+      properties:
+        title:
+          type: string
+          example: Продаю велосипед
+          description: Заголовок поста
+        description:
+          type: string
+          example: Горный велосипед, 2 года, отличное состояние
+          description: Описание поста
+        imageUrl:
+          type: string
+          example: https://picsum.photos/seed/bike/600/400
+          description: URL изображения
+        authorId:
+          type: integer
+          example: 1
+          description: ID автора поста
+
+    PostResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Продаю велосипед
+        description:
+          type: string
+          example: Горный велосипед, 2 года, отличное состояние
+        imageUrl:
+          type: string
+          example: https://picsum.photos/seed/bike/600/400
+        author:
+          $ref: '#/components/schemas/UserResponse'
+        likesCount:
+          type: integer
+          example: 0
+        isLiked:
+          type: boolean
+          example: false
+        createdAt:
+          type: string
+          format: date-time
+          example: "2025-12-16T12:30:45.123456"
