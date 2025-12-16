@@ -17,5 +17,19 @@
             <scope>provided</scope>
             <!-- БЕЗ ВЕРСИИ - версия из dependencyManagement -->
         </dependency>
+
+        <!-- Spring Web для @RestControllerAdvice и других аннотаций -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring Context для @Component и других -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>
