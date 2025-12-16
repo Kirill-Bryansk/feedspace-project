@@ -33,5 +33,7 @@
 
     <modules>
         <module>feedspace-api</module>
+        <module>feedspace-domain</module>
+        <module>feedspace-application</module>
     </modules>
 </project>
