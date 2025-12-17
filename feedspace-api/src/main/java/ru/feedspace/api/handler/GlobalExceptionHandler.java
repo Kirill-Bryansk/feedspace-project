@@ -17,7 +17,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleGenericException(Exception ex) {
-        return new ErrorResponse("Internal server error");
+        // ВРЕМЕННО для отладки
+        System.err.println("=== ERROR DETAILS ===");
+        ex.printStackTrace();
+        System.err.println("====================");
+
+        return new ErrorResponse("Internal server error: " + ex.getClass().getSimpleName());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
