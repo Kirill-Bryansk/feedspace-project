@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "posts")
@@ -32,6 +34,9 @@ public class Post {
 
     @Builder.Default
     private Integer likesCount = 0;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Like> likes = new HashSet<>();
 
     @CreationTimestamp
     private LocalDateTime createdAt;

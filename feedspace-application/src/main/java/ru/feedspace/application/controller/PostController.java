@@ -32,17 +32,23 @@ public class PostController {
     }
 
     @PutMapping("/{id}/like")
-    public PostResponse likePost(@PathVariable Long id) {
-        log.debug("PUT: лайк поста ID: {}", id);
-        // TODO: получить userId из аутентификации, пока используем заглушку
-        Long userId = 1L;
-        return postService.likePost(id, userId);
+    public PostResponse likePost(@PathVariable Long id,
+                                 @RequestParam(required = false) Long userId) {
+        log.debug("PUT: лайк поста ID: {}, пользователь ID: {}", id, userId);
+
+        // TODO: Получать userId из аутентификации
+        Long currentUserId = (userId != null) ? userId : 1L;  // Заглушка
+
+        return postService.likePost(id, currentUserId);
     }
 
     @DeleteMapping("/{id}/like")
-    public PostResponse unlikePost(@PathVariable Long id) {
-        log.debug("DELETE: удаление лайка с поста ID: {}", id);
-        Long userId = 1L;
-        return postService.unlikePost(id, userId);
+    public PostResponse unlikePost(@PathVariable Long id,
+                                   @RequestParam(required = false) Long userId) {
+        log.debug("DELETE: удаление лайка с поста ID: {}, пользователь ID: {}", id, userId);
+
+        Long currentUserId = (userId != null) ? userId : 1L;  // Заглушка
+
+        return postService.unlikePost(id, currentUserId);
     }
 }
